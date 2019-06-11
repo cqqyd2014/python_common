@@ -15,9 +15,9 @@ class Database:
         conn_result=self.getConnection()
         if (conn_result=="Connected to database"):
             self.closeConnection()
-            return {'tf':True,'message_body':'数据库连接成功','message_type':'success'}
+            return {'tf':True,'connect_message_body':'数据库连接成功','connect_message_type':'success'}
         else:
-            return {'tf':False,'message_body':'数据库连接失败：'+conn_result,'message_type':'danger'}
+            return {'tf':False,'connect_message_body':'数据库连接失败：'+conn_result,'connect_message_type':'danger'}
 
     def getConnection(self):
         try:
