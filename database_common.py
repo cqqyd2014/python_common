@@ -11,6 +11,41 @@ class Database:
         self.db_username=db_username
         self.db_password=db_password
 
+    def getTables(self):
+        #select name from sysobjects where xtype='u'
+        cursor = self.conn.cursor()
+        cursor.execute("select name from sysobjects where xtype='u'")
+        tables=[]
+        for row in cursor:
+            #print('row = %r' % (row,))
+            
+            tables.append(row[0])
+        cursor.close()
+        return tables
+
+    def getColumn(self,table_name):
+        '''
+        select  b.name colName, c.name colType ,c.length colLength
+
+from sysobjects a inner join syscolumns b
+on a.id=b.id and a.xtype='U'
+inner join systypes c
+on b.xtype=c.xusertype
+where a.name='03对手为正贵的对公账号的流水信息'
+'''
+        cursor = self.conn.cursor()
+        cursor.execute("select  b.name colName, c.name colType ,c.length colLength from sysobjects a inner join syscolumns b on a.id=b.id and a.xtype='U' inner join systypes c on b.xtype=c.xusertype where a.name='"+table_name+"'")
+        columns=[]
+        for row in cursor:
+            #print('row = %r' % (row,))
+            
+            columns.append(row[0])
+        cursor.close()
+        return columns
+
+
+
+
     def testConnection(self):
         conn_result=self.getConnection()
         if (conn_result=="Connected to database"):
