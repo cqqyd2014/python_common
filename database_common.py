@@ -24,8 +24,9 @@ class Database:
                 
             if self.db_type=='MS SQLSERVER':
                 self.conn = pymssql.connect(server=self.db_address,port=self.db_port,user=self.db_username,password=self.db_password,database=self.db_name)
-        except pymssql.InterfaceError as e:
+        except (pymssql.InterfaceError,pymssql.OperationalError) as e:
             return "Connect Failed:"+str(e)
+        
         else:
             return "Connected to database"
 
