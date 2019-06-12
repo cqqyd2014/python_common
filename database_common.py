@@ -61,6 +61,7 @@ where a.name='03对手为正贵的对公账号的流水信息'
         try:
                 
             if self.db_type=='MS SQLSERVER':
+                print("start connect")
                 self.conn = pymssql.connect(server=self.db_address,port=self.db_port,user=self.db_username,password=self.db_password,database=self.db_name)
                 print(self.conn)
                 print("ok")
