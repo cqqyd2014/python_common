@@ -67,6 +67,8 @@ where a.name='03对手为正贵的对公账号的流水信息'
                 print("ok")
         except (pymssql.InterfaceError,pymssql.OperationalError) as e:
             return "Connect Failed:"+str(e)
+        except:
+            print("Unexpected error:", sys.exc_info()[0])
         
         else:
             return "Connected to database"
