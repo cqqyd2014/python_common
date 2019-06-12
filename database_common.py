@@ -1,5 +1,4 @@
 import pymssql
-
 from db_type_to_sys_type import DbTypeToSysType
 
 
