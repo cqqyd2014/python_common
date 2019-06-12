@@ -71,6 +71,7 @@ where a.name='03对手为正贵的对公账号的流水信息'
             print("Unexpected error:", sys.exc_info()[0])
         
         else:
+            print("connected ok")
             return "Connected to database"
 
 
