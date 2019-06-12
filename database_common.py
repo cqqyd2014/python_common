@@ -1,5 +1,7 @@
 import pymssql
 
+from db_type_to_sys_type import DbTypeToSysType
+
 
 class Database:
     conn=None
@@ -34,12 +36,12 @@ on b.xtype=c.xusertype
 where a.name='03对手为正贵的对公账号的流水信息'
 '''
         cursor = self.conn.cursor()
-        cursor.execute("select  b.name colName, c.name colType ,c.length colLength from sysobjects a inner join syscolumns b on a.id=b.id and a.xtype='U' inner join systypes c on b.xtype=c.xusertype where a.name='"+table_name+"'")
+        cursor.execute("select  b.name colName, c.name colType ,c.length colLength from sysobjects a inner join syscolumns b on a.id=b.id and a.xtype='U' inner join systypes c on b.xtype=c.xusertype where a.name='"+table_name+"' and c.name not in('binary','varbinary','image')")
         columns=[]
         for row in cursor:
             #print('row = %r' % (row,))
             
-            columns.append(row[0])
+            columns.append([row[0],DbTypeToSysType.mssql(row[1])])
         cursor.close()
         return columns
 
@@ -61,15 +63,7 @@ where a.name='03对手为正贵的对公账号的流水信息'
         try:
                 
             if self.db_type=='MS SQLSERVER':
-                print("start connect")
-                print(self.db_address)
-                print(self.db_port)
-                print(self.db_username)
-                print(self.db_password)
-                print(self.db_name)
                 self.conn = pymssql.connect(server=self.db_address,port=self.db_port,user=self.db_username,password=self.db_password,database=self.db_name)
-                print(self.conn)
-                print("ok")
         except (pymssql.InterfaceError,pymssql.OperationalError) as e:
             return "Connect Failed:"+str(e)
         except:
