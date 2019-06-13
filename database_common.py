@@ -1,4 +1,6 @@
 import pymssql
+import sys
+sys.path.append(".")
 import db_type_to_sys_type
 
 
