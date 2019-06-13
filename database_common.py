@@ -58,7 +58,6 @@ where a.name='03对手为正贵的对公账号的流水信息'
     
 
     def getConnection(self):
-        print(self.db_type)
         try:
                 
             if self.db_type=='MS SQLSERVER':
@@ -66,10 +65,11 @@ where a.name='03对手为正贵的对公账号的流水信息'
         except (pymssql.InterfaceError,pymssql.OperationalError) as e:
             return "Connect Failed:"+str(e)
         except:
-            print("Unexpected error:", sys.exc_info()[0])
+            #print("Unexpected error:", sys.exc_info()[0])
+            return "Connect Failed:"+sys.exc_info()[0]
         
         else:
-            print("connected ok")
+            #print("connected ok")
             return "Connected to database"
 
 
