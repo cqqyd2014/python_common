@@ -28,16 +28,26 @@ class Database:
     def getTopRowCells(self,table_name,top_rows,cols_list):
 
 
-        cursor = self.conn.cursor()
-
-
-        cursor.execute("select top "+str(top_rows)+cols_list.join(",")+" from "+table_name)
+        cursor = self.conn.cursor(as_dict=True)
+        
+        cols_arry=[]
+        for i in cols_list:
+            cols_arry.append(i[0])
+        cols=','.join(cols_arry)
+        sql="select top "+str(top_rows)+" "+cols+" from "+table_name
+        print(sql)
+        cursor.execute(sql)
+        #print(cursor)
         data_cells=[]
+        #print("start")
         for row in cursor:
-            #print('row = %r' % (row,))
+            #print('aaa')
             data_row=[]
+            #print(row)
             for index in cols_list:
-                data_row.append(row[index])
+                #print(index)
+                data_row.append(row[index[0]])
+            #print(data_row)
             data_cells.append(data_row)
         cursor.close()
         return data_cells

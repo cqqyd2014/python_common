@@ -2,7 +2,6 @@
 class DbTypeToSysType:
     @staticmethod
     def mssql(par):
-        print(par)
         if par == 'datetime':
             return 'string'
         elif par == 'varchar':
