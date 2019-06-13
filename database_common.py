@@ -24,6 +24,25 @@ class Database:
         cursor.close()
         return tables
 
+
+    def getTopRowCells(self,table_name,top_rows,cols_list):
+
+
+        cursor = self.conn.cursor()
+
+
+        cursor.execute("select top "+str(top_rows)+cols_list.join(",")+" from "+table_name)
+        data_cells=[]
+        for row in cursor:
+            #print('row = %r' % (row,))
+            data_row=[]
+            for index in cols_list:
+                data_row.append(row[index])
+            data_cells.append(data_row)
+        cursor.close()
+        return data_cells
+
+
     def getColumn(self,table_name):
         '''
         select  b.name colName, c.name colType ,c.length colLength

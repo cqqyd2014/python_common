@@ -4,41 +4,41 @@ class DbTypeToSysType:
     def mssql(par):
         print(par)
         if par == 'datetime':
-            return 'DateTime'
+            return 'string'
         elif par == 'varchar':
-            return 'Text'
+            return 'string'
         elif par == 'decimal':
-            return 'Float'
+            return 'float'
         elif par == 'nvarchar':
-            return 'Text'
+            return 'string'
         elif par == 'smallint':
-            return 'Int'
+            return 'long'
         elif par == 'int':
-            return 'Int'
+            return 'long'
         elif par == 'char':
-            return 'Text'
+            return 'string'
         elif par == 'bit':
-            return 'Int'
+            return 'long'
         elif par == 'tinyint':
-            return 'Int'
+            return 'long'
         elif par == 'numeric':
-            return 'Float'
+            return 'float'
         elif par == 'float':
-            return 'Float'
+            return 'float'
         elif par == 'real':
-            return 'Float'
+            return 'float'
         elif par == 'smalldatetime':
-            return 'Date'
+            return 'string'
         elif par == 'text':
-            return 'Text'
+            return 'string'
         elif par == 'nchar':
-            return 'Text'
+            return 'string'
         elif par == 'ntext':
-            return 'Text'
+            return 'string'
         elif par == 'timestamp':
-            return 'Text'
+            return 'string'
         elif par == 'uniqueidentifier':
-            return 'Text'
+            return 'string'
 
             
 
