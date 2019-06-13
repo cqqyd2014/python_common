@@ -1,7 +1,5 @@
 import pymssql
-import sys
-sys.path.append(".")
-import db_type_to_sys_type
+from db_type_to_sys_type import DbTypeToSysType
 
 
 class Database:
@@ -42,7 +40,7 @@ where a.name='03对手为正贵的对公账号的流水信息'
         for row in cursor:
             #print('row = %r' % (row,))
             
-            columns.append([row[0],db_type_to_sys_type.DbTypeToSysType.mssql(row[1])])
+            columns.append([row[0],DbTypeToSysType.mssql(row[1])])
         cursor.close()
         return columns
 
