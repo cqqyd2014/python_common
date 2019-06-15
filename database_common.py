@@ -25,6 +25,30 @@ class Database:
         return tables
 
 
+    
+
+    def openBatchCursor(self,table_name,cols_list):
+        self.batch_cursor=self.conn.cursor()
+        cols_arry=[]
+        for i in cols_list:
+            cols_arry.append(i[0])
+        cols=','.join(cols_arry)
+        sql="select "+cols+" from "+table_name
+        self.batch_cursor.execute(sql)
+    
+    def getBatchCursorRowCount(self):
+        return self.batch_cursor.rowcount
+
+    def closeBatchCursor(self):
+        self.batch_cursor.close()
+
+    def getBatchCursorRows(self,arraysize):
+        
+        return self.batch_cursor.fetchmany(arraysize)
+        
+        
+
+
     def getTopRowCells(self,table_name,top_rows,cols_list):
 
 
@@ -35,7 +59,7 @@ class Database:
             cols_arry.append(i[0])
         cols=','.join(cols_arry)
         sql="select top "+str(top_rows)+" "+cols+" from "+table_name
-        print(sql)
+        #print(sql)
         cursor.execute(sql)
         #print(cursor)
         data_cells=[]
