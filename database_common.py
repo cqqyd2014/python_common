@@ -34,6 +34,7 @@ class Database:
             cols_arry.append(i[0])
         cols=','.join(cols_arry)
         sql="select "+cols+" from "+table_name
+        print(sql)
         self.batch_cursor.execute(sql)
     
     def getBatchCursorRowCount(self):
