@@ -60,7 +60,7 @@ class Database:
             cols_arry.append(i[0])
         cols=','.join(cols_arry)
         sql="select top "+str(top_rows)+" "+cols+" from "+table_name
-        #print(sql)
+        print(sql)
         cursor.execute(sql)
         #print(cursor)
         data_cells=[]

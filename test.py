@@ -8,7 +8,7 @@ db=Database('MS SQLSERVER','localhost','1433','master','sa','Wang1980')
 db.getConnection()
 list1=db.getColumn('spt_monitor')
 
-
+print(list1)
 db.openBatchCursor('spt_monitor',list1)
 print(db.getBatchCursorRowCount())
 
