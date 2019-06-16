@@ -4,6 +4,11 @@ from db_type_to_sys_type import DbTypeToSysType
 
 class Database:
     conn=None
+
+    def formate_table_name(self,table_name):
+        if self.db_type=='MS SQLSERVER':
+            return '['+table_name+"]"
+
     def __init__(self,db_type,db_address,db_port,db_name,db_username,db_password):    #构造函数，类接收外部传入参数全靠构造函数
         self.db_type = db_type
         self.db_address = db_address
@@ -28,6 +33,7 @@ class Database:
     
 
     def openBatchCursor(self,table_name,cols_list):
+        table_name=self.formate_table_name(table_name)
         self.batch_cursor=self.conn.cursor()
         cols_arry=[]
         for i in cols_list:
@@ -51,7 +57,7 @@ class Database:
 
 
     def getTopRowCells(self,table_name,top_rows,cols_list):
-
+        table_name=self.formate_table_name(table_name)
 
         cursor = self.conn.cursor(as_dict=True)
         
@@ -79,6 +85,7 @@ class Database:
 
 
     def getColumn(self,table_name):
+
         '''
         select  b.name colName, c.name colType ,c.length colLength
 
@@ -88,6 +95,7 @@ inner join systypes c
 on b.xtype=c.xusertype
 where a.name='03对手为正贵的对公账号的流水信息'
 '''
+        #table_name=self.formate_table_name(table_name)
         cursor = self.conn.cursor()
         cursor.execute("select  b.name colName, c.name colType ,c.length colLength from sysobjects a inner join syscolumns b on a.id=b.id and a.xtype='U' inner join systypes c on b.xtype=c.xusertype where a.name='"+table_name+"' and c.name not in('binary','varbinary','image')")
         columns=[]
