@@ -2,6 +2,44 @@
 import base64
 import datetime,json
 import urllib
+import psutil
+
+
+
+class BackSystem():
+    @staticmethod
+    def getpids():
+        pids=psutil.pids()
+        array_pids=[]
+        for pidid in pids:
+            pid=[]
+            p = psutil.Process(pidid)
+            pid.append(p.name())
+            #pid.append(p.exe())
+            #pid.append(p.cwd())
+            pid.append(p.status())
+            pid.append(p.create_time())
+            #pid.append(p.uids())
+            #pid.append(p.gids())
+            pid.append(p.cpu_times())
+            #pid.append(p.cpu_affinity())
+            pid.append(p.memory_percent())
+            pid.append(p.memory_info())
+            pid.append(p.io_counters())
+            #pid.append(p.connectios())
+            pid.append(p.num_threads())
+            array_pids.append(pid)
+        return array_pids
+
+    @staticmethod
+    def getpids_by_name(par):
+        pids=BackSystem.getpids()
+        r_pids=[]
+        for pid in pids:
+            print(pid[0])
+            if pid[0].find(par)>0:
+                r_pids.append(pid)
+        return r_pids
 
 
 class DateTimeEncoder(json.JSONEncoder):
