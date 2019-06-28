@@ -1,4 +1,5 @@
 import pymssql
+import cx_Oracle
 from db_type_to_sys_type import DbTypeToSysType
 
 
@@ -124,6 +125,8 @@ where a.name='03对手为正贵的对公账号的流水信息'
                 
             if self.db_type=='MS SQLSERVER':
                 self.conn = pymssql.connect(server=self.db_address,port=self.db_port,user=self.db_username,password=self.db_password,database=self.db_name)
+            if self.db_type=='ORACLE':
+                self.conn =  cx_Oracle.connect(self.db_username, self.db_password,self.db_address+':'+self.db_port+'/'+self.db_name)
         except (pymssql.InterfaceError,pymssql.OperationalError) as e:
             return "Connect Failed:"+str(e)
         except:
@@ -142,6 +145,12 @@ where a.name='03对手为正贵的对公账号的流水信息'
         if self.db_type=='MS SQLSERVER':
             cursor = self.conn.cursor()
             cursor.execute("SELECT @@VERSION")
+            version=cursor.fetchone()[0]
+            cursor.close()
+            return version
+        if self.db_type=='ORACLE':
+            cursor=self.conn.cursor()
+            cursor.execute("select * from v$version")
             version=cursor.fetchone()[0]
             cursor.close()
             return version
