@@ -9,6 +9,8 @@ class Database:
     def formate_table_name(self,table_name):
         if self.db_type=='MS SQLSERVER':
             return '['+table_name+"]"
+        if self.db_type=='ORACLE':
+            return table_name
 
     def __init__(self,db_type,db_address,db_port,db_name,db_username,db_password):    #构造函数，类接收外部传入参数全靠构造函数
         self.db_type = db_type
@@ -21,7 +23,10 @@ class Database:
     def getTables(self):
         #select name from sysobjects where xtype='u'
         cursor = self.conn.cursor()
-        cursor.execute("select name from sysobjects where xtype='u'")
+        if self.db_type=='MS SQLSERVER':
+            cursor.execute("select name from sysobjects where xtype='u'")
+        if self.db_type=='ORACLE':
+            cursor.execute('select table_name from user_tables')
         tables=[]
         for row in cursor:
             #print('row = %r' % (row,))
@@ -66,7 +71,11 @@ class Database:
         for i in cols_list:
             cols_arry.append(i[0])
         cols=','.join(cols_arry)
-        sql="select top "+str(top_rows)+" "+cols+" from "+table_name
+        sql=""
+        if self.db_type=='MS SQLSERVER':
+            sql="select top "+str(top_rows)+" "+cols+" from "+table_name
+        if self.db_type=='ORACLE':
+            sql="select "+cols+" from "+table_name+ " where rownum<"+str(top_rows)
         print(sql)
         cursor.execute(sql)
         #print(cursor)
@@ -98,7 +107,10 @@ where a.name='03对手为正贵的对公账号的流水信息'
 '''
         #table_name=self.formate_table_name(table_name)
         cursor = self.conn.cursor()
-        cursor.execute("select  b.name colName, c.name colType ,c.length colLength from sysobjects a inner join syscolumns b on a.id=b.id and a.xtype='U' inner join systypes c on b.xtype=c.xusertype where a.name='"+table_name+"' and c.name not in('binary','varbinary','image')")
+        if self.db_type=='MS SQLSERVER':
+            cursor.execute("select  b.name colName, c.name colType ,c.length colLength from sysobjects a inner join syscolumns b on a.id=b.id and a.xtype='U' inner join systypes c on b.xtype=c.xusertype where a.name='"+table_name+"' and c.name not in('binary','varbinary','image')")
+        if self.db_type=='ORACLE':
+            cursor.execute("select  column_name,data_type,data_length,DATA_PRECISION ,DATA_SCALE from all_tab_columns  where table_name=upper('"+table_name+"') and data_type not in('LONG','RAW','LONG RAW','BLOB','CLOB','NCLOB','BFILE','ROWID','NROWID')")
         columns=[]
         for row in cursor:
             #print('row = %r' % (row,))
