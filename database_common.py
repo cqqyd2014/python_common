@@ -114,6 +114,7 @@ where a.name='03对手为正贵的对公账号的流水信息'
         columns=[]
         for row in cursor:
             #print('row = %r' % (row,))
+            print(self.db_type)
             if self.db_type=='MS SQLSERVER':
                 columns.append([row[0],DbTypeToSysType.mssql(row[1])])
             if self.db_type=='ORACLE':
