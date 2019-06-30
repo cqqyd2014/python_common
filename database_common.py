@@ -119,6 +119,9 @@ where a.name='03对手为正贵的对公账号的流水信息'
             if self.db_type=='MS SQLSERVER':
                 columns.append([row[0],DbTypeToSysType.mssql(row[1])])
             if self.db_type=='ORACLE':
+                print("is oracle")
+                print(DbTypeToSysType.oracle(row[1]))
+                print("get")
                 columns.append([row[0],DbTypeToSysType.oracle(row[1])])
         cursor.close()
         return columns

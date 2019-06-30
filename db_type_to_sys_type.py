@@ -2,6 +2,8 @@
 class DbTypeToSysType:
     @staticmethod
     def oracle(par):
+        print("par")
+        print(par)
         if par=="VARCHAR2":
             return 'string'
         if par=="CHAR":
@@ -63,28 +65,3 @@ class DbTypeToSysType:
             return 'string'
         elif par == 'uniqueidentifier':
             return 'string'
-
-            
-
-
-            
-
-            
-
-
-            
-
-            
-
-
-            
-    
-    @staticmethod
-    def oracle(par):
-        if par == 'datetime':
-            return 'DateTime'
-        elif par == 'varchar':
-            return 'Text'
-        elif par == 'decimal':
-            return 'Float'
-    
