@@ -65,7 +65,7 @@ class Database:
     def getTopRowCells(self,table_name,top_rows,cols_list):
         table_name=self.formate_table_name(table_name)
 
-        cursor = self.conn.cursor(as_dict=True)
+        cursor = self.conn.cursor()
         
         cols_arry=[]
         for i in cols_list:
@@ -76,20 +76,22 @@ class Database:
             sql="select top "+str(top_rows)+" "+cols+" from "+table_name
         if self.db_type=='ORACLE':
             sql="select "+cols+" from "+table_name+ " where rownum<"+str(top_rows)
-        print(sql)
+        #print(sql)
         cursor.execute(sql)
         #print(cursor)
         data_cells=[]
         #print("start")
-        for row in cursor:
-            #print('aaa')
+        rows=cursor.fetchall()
+        for row in rows:
+            
             data_row=[]
             #print(row)
-            for index in cols_list:
+            for index in range(len(cols_list)):
                 #print(index)
-                data_row.append(row[index[0]])
+                data_row.append(row[index])
             #print(data_row)
             data_cells.append(data_row)
+            
         cursor.close()
         return data_cells
 
@@ -114,14 +116,9 @@ where a.name='03对手为正贵的对公账号的流水信息'
         columns=[]
         for row in cursor:
             #print('row = %r' % (row,))
-            print(self.db_type)
-            print(row[1])
             if self.db_type=='MS SQLSERVER':
                 columns.append([row[0],DbTypeToSysType.mssql(row[1])])
             if self.db_type=='ORACLE':
-                print("is oracle")
-                print(DbTypeToSysType.oracle(row[1]))
-                print("get")
                 columns.append([row[0],DbTypeToSysType.oracle(row[1])])
         cursor.close()
         return columns
