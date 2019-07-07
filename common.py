@@ -9,6 +9,8 @@ import string
 class DataClear:
     @staticmethod
     def text_to_long(par):
+        if par==None:
+            return None
         num_str=re.findall(r"\d+\.?\d*",par)
         num=float(num_str)
         if string.find(par.index,'亿')!=-1:
