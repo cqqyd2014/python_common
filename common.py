@@ -3,6 +3,21 @@ import base64
 import datetime,json
 import urllib
 import psutil
+import re
+import string
+
+class DataClear:
+    @staticmethod
+    def text_to_long(par):
+        num_str=re.findall(r"\d+\.?\d*",par)
+        num=float(num_str)
+        if string.find(par.index,'亿')!=-1:
+            num=num*100000000
+        if string.find(par.index,'万')!=-1:
+            num=num*10000
+        return long(num)
+    
+    
 
 
 

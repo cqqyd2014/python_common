@@ -1,6 +1,10 @@
 import pymssql
 import cx_Oracle
 from db_type_to_sys_type import DbTypeToSysType
+import sys
+
+
+
 
 
 class Database:
@@ -144,6 +148,8 @@ where a.name='03对手为正贵的对公账号的流水信息'
             if self.db_type=='ORACLE':
                 self.conn =  cx_Oracle.connect(self.db_username, self.db_password,self.db_address+':'+self.db_port+'/'+self.db_name)
         except (pymssql.InterfaceError,pymssql.OperationalError) as e:
+            return "Connect Failed:"+str(e)
+        except (cx_Oracle.DatabaseError) as e:
             return "Connect Failed:"+str(e)
         except:
             #print("Unexpected error:", sys.exc_info()[0])
