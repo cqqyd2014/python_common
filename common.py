@@ -7,17 +7,21 @@ import re
 import string
 
 class DataClear:
-    @staticmethod
-    def text_to_long(par):
+    
+    def text_to_int(self,par):
+        return int(self.text_to_float(par))
+
+    
+    def text_to_float(self,par):
         if par==None:
             return None
         num_str=re.findall(r"\d+\.?\d*",par)
         num=float(num_str[0])
-        if string.find(par.index,'亿')!=-1:
+        if par.find('亿')!=-1:
             num=num*100000000
-        if string.find(par.index,'万')!=-1:
+        if par.find('万')!=-1:
             num=num*10000
-        return long(num)
+        return num
     
     
 
