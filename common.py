@@ -12,7 +12,7 @@ class DataClear:
         if par==None:
             return None
         num_str=re.findall(r"\d+\.?\d*",par)
-        num=float(num_str)
+        num=float(num_str[0])
         if string.find(par.index,'亿')!=-1:
             num=num*100000000
         if string.find(par.index,'万')!=-1:
