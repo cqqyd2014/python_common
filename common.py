@@ -5,7 +5,7 @@ import urllib
 import psutil
 import re
 import string
-import time
+import datetime
 
 class DataClear:
 
@@ -15,7 +15,7 @@ class DataClear:
         date_all = re.findall(r"(\d{4}-\d{1,2}-\d{1,2}\s\d{1,2}:\d{1,2}:\d{1,2}.\d{4})",par)
         try:
 
-            date= time.strptime(date_all[0], "%Y-%m-%d %H:%M:%S.%f")
+            date= datetime.datetime.strptime(date_all[0], "%Y-%m-%d %H:%M:%S.%f")
             return date
         except:
             return None
@@ -24,7 +24,7 @@ class DataClear:
     def text_to_date(self,par):
         date_all = re.findall(r"(\d{4}-\d{1,2}-\d{1,2})",par)
         try:
-            date= time.strptime(date_all[0], "%Y-%m-%d")
+            date= datetime.datetime.strptime(date_all[0], "%Y-%m-%d")
             return date
         except:
             return None

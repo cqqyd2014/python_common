@@ -3,4 +3,4 @@ import sys
 from common import BackSystem,DataClear
 
 dc=DataClear()
-print(dc.text_to_int("亿"))
+print(dc.text_to_date("2019-1-222"))
