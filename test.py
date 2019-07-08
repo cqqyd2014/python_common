@@ -3,4 +3,4 @@ import sys
 from common import BackSystem,DataClear
 
 dc=DataClear()
-print(dc.text_to_int("100亿"))
+print(dc.text_to_int("亿"))

@@ -5,23 +5,51 @@ import urllib
 import psutil
 import re
 import string
+import time
 
 class DataClear:
+
+
+
+    def text_to_datetime(self,par):
+        date_all = re.findall(r"(\d{4}-\d{1,2}-\d{1,2}\s\d{1,2}:\d{1,2}:\d{1,2}.\d{4})",par)
+        try:
+
+            date= time.strptime(date_all[0], "%Y-%m-%d %H:%M:%S.%f")
+            return date
+        except:
+            return None
+
+
+    def text_to_date(self,par):
+        date_all = re.findall(r"(\d{4}-\d{1,2}-\d{1,2})",par)
+        try:
+            date= time.strptime(date_all[0], "%Y-%m-%d")
+            return date
+        except:
+            return None
     
     def text_to_int(self,par):
-        return int(self.text_to_float(par))
+        try:
+            rs=int(self.text_to_float(par))
+            return rs
+        except:
+            return None
 
     
     def text_to_float(self,par):
         if par==None:
             return None
         num_str=re.findall(r"\d+\.?\d*",par)
-        num=float(num_str[0])
-        if par.find('亿')!=-1:
-            num=num*100000000
-        if par.find('万')!=-1:
-            num=num*10000
-        return num
+        try:
+            num=float(num_str[0])
+            if par.find('亿')!=-1:
+                num=num*100000000
+            if par.find('万')!=-1:
+                num=num*10000
+            return num
+        except:
+            return None
     
     
 
