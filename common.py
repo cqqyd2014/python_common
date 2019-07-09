@@ -47,6 +47,8 @@ class DataClear:
                 num=num*100000000
             if par.find('万')!=-1:
                 num=num*10000
+            if par.find('%')!=-1:
+                num=num*0.01
             return num
         except:
             return None
