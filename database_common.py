@@ -1,14 +1,16 @@
 import pymssql
 import cx_Oracle
 from db_type_to_sys_type import DbTypeToSysType
-import sys
-
-
-
 
 
 class Database:
     conn=None
+
+    def formate_col_namee(self,col_name):
+        if self.db_type=='MS SQLSERVER':
+            return '['+col_name+"]"
+        if self.db_type=='ORACLE':
+            return col_name
 
     def formate_table_name(self,table_name):
         if self.db_type=='MS SQLSERVER':
@@ -47,7 +49,8 @@ class Database:
         self.batch_cursor=self.conn.cursor()
         cols_arry=[]
         for i in cols_list:
-            cols_arry.append(i[0])
+            if i[2]!='不导入':
+                cols_arry.append(self.formate_col_namee(i[0]))
         cols=','.join(cols_arry)
         sql="select "+cols+" from "+table_name
         print(sql)
@@ -60,8 +63,21 @@ class Database:
         self.batch_cursor.close()
 
     def getBatchCursorRows(self,arraysize):
-        
-        return self.batch_cursor.fetchmany(arraysize)
+        rows=self.batch_cursor.fetchmany(arraysize)
+        new_rows=[]
+        for row in rows:
+            #print(row)
+            new_cols=[]
+            for col in row:
+                if isinstance(col, str):
+                    col = col.replace("\r\n","")
+                    col = col.replace("\r","")
+                    col = col.replace("\n","")
+                    col = col.replace(",","")
+                    col = col.replace("\"","")
+                new_cols.append(col)
+            new_rows.append(new_cols)
+        return new_rows
         
         
 
@@ -69,7 +85,7 @@ class Database:
     def getTopRowCells(self,table_name,top_rows,cols_list):
         table_name=self.formate_table_name(table_name)
 
-        cursor = self.conn.cursor()
+        cursor = self.conn.cursor(as_dict=True)
         
         cols_arry=[]
         for i in cols_list:
@@ -80,22 +96,28 @@ class Database:
             sql="select top "+str(top_rows)+" "+cols+" from "+table_name
         if self.db_type=='ORACLE':
             sql="select "+cols+" from "+table_name+ " where rownum<"+str(top_rows)
-        #print(sql)
+        print(sql)
         cursor.execute(sql)
         #print(cursor)
         data_cells=[]
         #print("start")
-        rows=cursor.fetchall()
-        for row in rows:
-            
+        for row in cursor:
+            #print('aaa')
             data_row=[]
             #print(row)
-            for index in range(len(cols_list)):
-                #print(index)
-                data_row.append(row[index])
+            for index in cols_list:
+                col=row[index[0]]
+                print("替换前"+col)
+                if isinstance(col, str):
+                    col = col.replace(chr(10),"")
+                    col = col.replace(chr(13),"")
+                    col = col.replace(chr(44),"")
+                    col = col.replace(chr(34),"")
+                    col = col.replace(chr(39),"")
+                print("替换后"+col)
+                data_row.append(col)
             #print(data_row)
             data_cells.append(data_row)
-            
         cursor.close()
         return data_cells
 
@@ -120,10 +142,8 @@ where a.name='03对手为正贵的对公账号的流水信息'
         columns=[]
         for row in cursor:
             #print('row = %r' % (row,))
-            if self.db_type=='MS SQLSERVER':
-                columns.append([row[0],DbTypeToSysType.mssql(row[1])])
-            if self.db_type=='ORACLE':
-                columns.append([row[0],DbTypeToSysType.oracle(row[1])])
+            
+            columns.append([row[0],DbTypeToSysType.mssql(row[1])])
         cursor.close()
         return columns
 
@@ -148,8 +168,6 @@ where a.name='03对手为正贵的对公账号的流水信息'
             if self.db_type=='ORACLE':
                 self.conn =  cx_Oracle.connect(self.db_username, self.db_password,self.db_address+':'+self.db_port+'/'+self.db_name)
         except (pymssql.InterfaceError,pymssql.OperationalError) as e:
-            return "Connect Failed:"+str(e)
-        except (cx_Oracle.DatabaseError) as e:
             return "Connect Failed:"+str(e)
         except:
             #print("Unexpected error:", sys.exc_info()[0])
