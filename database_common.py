@@ -107,14 +107,14 @@ class Database:
             #print(row)
             for index in cols_list:
                 col=row[index[0]]
-                
+                print("转换前"+col)
                 if isinstance(col, str):
                     col = col.replace(chr(10),"")
                     col = col.replace(chr(13),"")
                     col = col.replace(chr(44),"")
                     col = col.replace(chr(34),"")
                     col = col.replace(chr(39),"")
-                
+                print("转换后")+col
                 data_row.append(col)
             #print(data_row)
             data_cells.append(data_row)
