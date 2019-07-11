@@ -114,7 +114,7 @@ class Database:
                     col = col.replace(chr(44),"")
                     col = col.replace(chr(34),"")
                     col = col.replace(chr(39),"")
-                print("转换后")+col
+                print("转换后"+col)
                 data_row.append(col)
             #print(data_row)
             data_cells.append(data_row)
