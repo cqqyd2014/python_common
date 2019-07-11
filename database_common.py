@@ -75,6 +75,8 @@ class Database:
                     col = col.replace(chr(44),"")
                     col = col.replace(chr(34),"")
                     col = col.replace(chr(39),"")
+                if isinstance(col, datetime.datetime):
+                    pass
                 new_cols.append(col)
             new_rows.append(new_cols)
         return new_rows
@@ -109,13 +111,13 @@ class Database:
                 col=row[index[0]]
                 
                 if isinstance(col, str):
-                    print("转换前"+col)
+                    #print("转换前"+col)
                     col = col.replace(chr(10),"")
                     col = col.replace(chr(13),"")
                     col = col.replace(chr(44),"")
                     col = col.replace(chr(34),"")
                     col = col.replace(chr(39),"")
-                    print("转换后"+col)
+                    #print("转换后"+col)
                 if isinstance(col, datetime.datetime):
                     pass
                 
