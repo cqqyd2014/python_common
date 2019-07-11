@@ -1,7 +1,7 @@
 import pymssql
 import cx_Oracle
 from db_type_to_sys_type import DbTypeToSysType
-
+import datetime
 
 class Database:
     conn=None
@@ -107,14 +107,18 @@ class Database:
             #print(row)
             for index in cols_list:
                 col=row[index[0]]
-                print("转换前"+col)
+                
                 if isinstance(col, str):
+                    print("转换前"+col)
                     col = col.replace(chr(10),"")
                     col = col.replace(chr(13),"")
                     col = col.replace(chr(44),"")
                     col = col.replace(chr(34),"")
                     col = col.replace(chr(39),"")
-                print("转换后"+col)
+                    print("转换后"+col)
+                if isinstance(col, datetime.datetime):
+                    pass
+                
                 data_row.append(col)
             #print(data_row)
             data_cells.append(data_row)
