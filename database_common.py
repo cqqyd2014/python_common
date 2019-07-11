@@ -70,11 +70,11 @@ class Database:
             new_cols=[]
             for col in row:
                 if isinstance(col, str):
-                    col = col.replace("\r\n","")
-                    col = col.replace("\r","")
-                    col = col.replace("\n","")
-                    col = col.replace(",","")
-                    col = col.replace("\"","")
+                    col = col.replace(chr(10),"")
+                    col = col.replace(chr(13),"")
+                    col = col.replace(chr(44),"")
+                    col = col.replace(chr(34),"")
+                    col = col.replace(chr(39),"")
                 new_cols.append(col)
             new_rows.append(new_cols)
         return new_rows
@@ -107,14 +107,14 @@ class Database:
             #print(row)
             for index in cols_list:
                 col=row[index[0]]
-                print("替换前"+col)
+                
                 if isinstance(col, str):
                     col = col.replace(chr(10),"")
                     col = col.replace(chr(13),"")
                     col = col.replace(chr(44),"")
                     col = col.replace(chr(34),"")
                     col = col.replace(chr(39),"")
-                print("替换后"+col)
+                
                 data_row.append(col)
             #print(data_row)
             data_cells.append(data_row)
