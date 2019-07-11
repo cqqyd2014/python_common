@@ -6,7 +6,7 @@ from db_type_to_sys_type import DbTypeToSysType
 class Database:
     conn=None
 
-    def formate_col_namee(self,col_name):
+    def formate_col_name(self,col_name):
         if self.db_type=='MS SQLSERVER':
             return '['+col_name+"]"
         if self.db_type=='ORACLE':
@@ -50,7 +50,7 @@ class Database:
         cols_arry=[]
         for i in cols_list:
             if i[2]!='不导入':
-                cols_arry.append(self.formate_col_namee(i[0]))
+                cols_arry.append(self.formate_col_name(i[0]))
         cols=','.join(cols_arry)
         sql="select "+cols+" from "+table_name
         print(sql)
@@ -89,7 +89,7 @@ class Database:
         
         cols_arry=[]
         for i in cols_list:
-            cols_arry.append(i[0])
+            cols_arry.append(self.formate_col_name(i[0]))
         cols=','.join(cols_arry)
         sql=""
         if self.db_type=='MS SQLSERVER':
