@@ -147,20 +147,24 @@ where a.name='03对手为正贵的对公账号的流水信息'
         if self.db_type=='ORACLE':
             cursor.execute("select  column_name,data_type,data_length,DATA_PRECISION ,DATA_SCALE from all_tab_columns  where table_name=upper('"+table_name+"') and data_type not in('LONG','RAW','LONG RAW','BLOB','CLOB','NCLOB','BFILE','ROWID','NROWID')")
         columns=[]
-        for row in cursor:
-            #print('row = %r' % (row,))
+        try:
+            for row in cursor:
+                #print('row = %r' % (row,))
 
-            #col有特殊字符，不能导入
-            _clean=self.dataClean(row[0])
-            print("之前")
-            print(row[0])
-            print("之后")
-            print(_clean)
-            if _clean!=row[0]:
-                raise Exception("字段含有特殊字符，不能导入")
-            
-            columns.append([row[0],DbTypeToSysType.mssql(row[1])])
-        cursor.close()
+                #col有特殊字符，不能导入
+                _clean=self.dataClean(row[0])
+                #print("之前")
+                #print(row[0])
+                #print("之后")
+                #print(_clean)
+                if _clean!=row[0]:
+                    raise Exception("字段含有特殊字符，不能导入")
+                
+                columns.append([row[0],DbTypeToSysType.mssql(row[1])])
+        except:
+            columns=[]
+        finally:
+            cursor.close()
         return columns
 
 
