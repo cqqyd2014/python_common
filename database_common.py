@@ -70,11 +70,7 @@ class Database:
             new_cols=[]
             for col in row:
                 if isinstance(col, str):
-                    col = col.replace(chr(10),"")
-                    col = col.replace(chr(13),"")
-                    col = col.replace(chr(44),"")
-                    col = col.replace(chr(34),"")
-                    col = col.replace(chr(39),"")
+                    col = self.dataClean(col)
                 if isinstance(col, datetime.datetime):
                     pass
                 new_cols.append(col)
@@ -112,11 +108,7 @@ class Database:
                 
                 if isinstance(col, str):
                     #print("转换前"+col)
-                    col = col.replace(chr(10),"")
-                    col = col.replace(chr(13),"")
-                    col = col.replace(chr(44),"")
-                    col = col.replace(chr(34),"")
-                    col = col.replace(chr(39),"")
+                    col = self.dataClean(col)
                     #print("转换后"+col)
                 if isinstance(col, datetime.datetime):
                     pass
@@ -126,6 +118,15 @@ class Database:
             data_cells.append(data_row)
         cursor.close()
         return data_cells
+
+    def dataClean(self,str):
+        str=str.replace(chr(10),"")
+        str=str.replace(chr(13),"")
+        str=str.replace(chr(44),"")
+        str=str.replace(chr(34),"")
+        str=str.replace(chr(39),"")
+        str=str.replace(chr(32),"")
+        return str
 
 
     def getColumn(self,table_name):
@@ -148,6 +149,11 @@ where a.name='03对手为正贵的对公账号的流水信息'
         columns=[]
         for row in cursor:
             #print('row = %r' % (row,))
+
+            #col有特殊字符，不能导入
+            _clean=self.dataClean(row[0])
+            if _clean!=row[0]:
+                raise Exception("字段含有特殊字符，不能导入")
             
             columns.append([row[0],DbTypeToSysType.mssql(row[1])])
         cursor.close()

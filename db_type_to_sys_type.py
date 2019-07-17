@@ -31,6 +31,8 @@ class DbTypeToSysType:
             return 'string'
         elif par == 'varchar':
             return 'string'
+        elif par == 'date':
+            return 'string'
         elif par == 'decimal':
             return 'float'
         elif par == 'nvarchar':
