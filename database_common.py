@@ -152,6 +152,10 @@ where a.name='03对手为正贵的对公账号的流水信息'
 
             #col有特殊字符，不能导入
             _clean=self.dataClean(row[0])
+            print("之前")
+            print(row[0])
+            print("之后")
+            print(_clean)
             if _clean!=row[0]:
                 raise Exception("字段含有特殊字符，不能导入")
             
