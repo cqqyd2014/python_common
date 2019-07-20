@@ -2,7 +2,7 @@ import json
 from neo4j import GraphDatabase
 from flask import Flask, request, session, g, redirect, url_for, \
      abort, render_template, flash,jsonify
-from mosr_back_orm.orm import create_session,SystemPar,init_db,SystemCode,ProcessDetail,SystemData
+#from mosr_back_orm.orm import create_session,SystemPar,init_db,SystemCode,ProcessDetail,SystemData
 bolt_conncect_string='bolt://localhost:7687'
 user='neo4j'
 password='Wang1980'
@@ -25,10 +25,12 @@ def getJson(cypher_sql):
             return jsonify(result)
 
 
-def command(command_sql):
+def command(command_sql,do_record):
         driver=GraphDatabase.driver(bolt_conncect_string, auth=(user, password))
         with driver.session() as session:
-            session.run(command_sql)
+            result=session.run(command_sql)
+            records=result.records()
+            do_record(records)
             
 
             

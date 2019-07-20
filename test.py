@@ -1,8 +1,8 @@
-from database_common import Database
-import sys
-from common import BackSystem,DataClear
+from neo4j_common import command
 
-a="ddd"+chr(13)+"xxx"
-print(a)
-b=a.replace(chr(13),"")
-print(b)
+
+
+
+
+command("CALL algo.unionFind.stream('top1000', 'KNOWS', {weightProperty:'weight', defaultValue:0.0, threshold:100.0,concurrency:1}) YIELD nodeId,setId RETURN nodeId,algo.asNode(nodeId).显示名称 AS user, setId")
+
