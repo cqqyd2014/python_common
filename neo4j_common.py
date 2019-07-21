@@ -28,9 +28,13 @@ def getJson(cypher_sql):
 def command(command_sql,do_record):
         driver=GraphDatabase.driver(bolt_conncect_string, auth=(user, password))
         with driver.session() as session:
-            result=session.run(command_sql)
-            records=result.records()
-            do_record(records)
+                if do_record!=None:
+                        result=session.run(command_sql)
+                        records=result.records()
+                        do_record(records)
+                else:
+                        session.run(command_sql)
+            
             
 
             
