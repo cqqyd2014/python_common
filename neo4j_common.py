@@ -38,7 +38,7 @@ def command(command_sql,do_record):
             
 
             
-            session.close()
+                session.close()
            
 
 
