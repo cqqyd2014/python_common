@@ -43,7 +43,7 @@ def command(command_sql,do_record):
 
 
 
-def getPath(cypher_sql):
+def getPath(cypher_sql,[colors]):
         driver=GraphDatabase.driver(bolt_conncect_string, auth=(user, password))
         with driver.session() as session:
             result = session.run(cypher_sql)
@@ -56,12 +56,14 @@ def getPath(cypher_sql):
                 nodes_object.append(node_object)
             #node的label可能为中文，需要转换为可以识别的类型，并给出对应列表,label不改变，将classes定义为随机生成的。c1，c2，c3
             #提取可用的颜色列表
+            '''
             db_session=create_session()
             systemCodes=db_session.query(SystemCode).filter(SystemCode.code_main=='node_color').all()
             colors=[]
             for sc in systemCodes:
                 colors.append(sc.code_code)
             db_session.close()
+            '''
             #处理classes
             nodes_colors={}#{'企业-abc,'#666666'}
             flag=0
