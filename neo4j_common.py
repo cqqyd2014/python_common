@@ -43,7 +43,7 @@ def command(command_sql,do_record):
 
 
 
-def getPath(cypher_sql,[colors]):
+def getPath(cypher_sql,colors):
         driver=GraphDatabase.driver(bolt_conncect_string, auth=(user, password))
         with driver.session() as session:
             result = session.run(cypher_sql)
