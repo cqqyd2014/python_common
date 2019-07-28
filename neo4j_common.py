@@ -31,10 +31,10 @@ def command(command_sql,do_record):
         with driver.session() as session:
                 if do_record!=None:
                         result=session.run(command_sql)
-                        print(command_sql)
-                        print(result)
+                        #print(command_sql)
+                        #print(result)
                         records=result.records()
-                        uuid=do_record(records)
+                        uuid=do_record(command_sql,records)
                 else:
                         session.run(command_sql)
             
