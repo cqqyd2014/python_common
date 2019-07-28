@@ -31,6 +31,8 @@ def command(command_sql,do_record):
         with driver.session() as session:
                 if do_record!=None:
                         result=session.run(command_sql)
+                        print(command_sql)
+                        
                         records=result.records()
                         uuid=do_record(records)
                 else:
