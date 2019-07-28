@@ -53,6 +53,7 @@ class Database:
                 cols_arry.append(self.formate_col_name(i[0]))
         cols=','.join(cols_arry)
         sql="select "+cols+" from "+table_name
+        print("batch")
         print(sql)
         self.batch_cursor.execute(sql)
     
