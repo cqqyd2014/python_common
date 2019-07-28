@@ -27,11 +27,12 @@ def getJson(cypher_sql):
 
 def command(command_sql,do_record):
         driver=GraphDatabase.driver(bolt_conncect_string, auth=(user, password))
+        uuid=''
         with driver.session() as session:
                 if do_record!=None:
                         result=session.run(command_sql)
                         records=result.records()
-                        do_record(records)
+                        uuid=do_record(records)
                 else:
                         session.run(command_sql)
             
@@ -39,6 +40,7 @@ def command(command_sql,do_record):
 
             
                 session.close()
+        return uuid
            
 
 
