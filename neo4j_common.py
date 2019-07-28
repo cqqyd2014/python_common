@@ -32,7 +32,7 @@ def command(command_sql,do_record):
                 if do_record!=None:
                         result=session.run(command_sql)
                         print(command_sql)
-                        
+                        print(result)
                         records=result.records()
                         uuid=do_record(records)
                 else:
