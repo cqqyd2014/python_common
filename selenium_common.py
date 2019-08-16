@@ -32,7 +32,7 @@ def init_database_system_par(system_type,db_session,SystemPar):
                                 par_value=r'/Volumes/MacintoshHD/Software/chrome_user_data_dir', par_type=2)
                 db_session.add(systemPar)
         #测试，目录是否存在，如果不存在创建目录
-        check_dir_and_create(systemPar['par_value'])
+        check_dir_and_create(systemPar.par_value)
 
 
 def hand_scroll(driver):
