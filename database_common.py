@@ -8,7 +8,7 @@ import datetime
 
 
 #基础数据
-def base_system_par(db_session,SystemCode):
+def base_system_code(db_session,SystemCode):
     currency(db_session,SystemCode)
 
 def currency(db_session,SystemCode):
