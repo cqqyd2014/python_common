@@ -1,6 +1,6 @@
 import pymssql
 import cx_Oracle
-from db_type_to_sys_type import DbTypeToSysType
+from .db_type_to_sys_type import DbTypeToSysType
 import datetime
 
 
