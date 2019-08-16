@@ -7,7 +7,7 @@ from .common import DataClear,check_dir_and_create
 
 
 
-def init_database_system_par(system_type,db_session):
+def init_database_system_par(system_type,db_session,SystemCode):
         systemPar=None
         if system_type=='Windows':
                 systemPar = SystemPar(par_code='chrome_driver', par_desc='Chrome驱动',
