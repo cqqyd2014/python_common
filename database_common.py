@@ -3,6 +3,43 @@ import cx_Oracle
 from db_type_to_sys_type import DbTypeToSysType
 import datetime
 
+
+
+
+
+#基础数据
+def base_system_par(db_session):
+    currency(db_session)
+
+def currency(db_session):
+    systemCode = SystemCode(code_main='currency', code_desc='货币',
+                            code_code='CNY', code_value='人民币元', code_type=2)
+    db_session.add(systemCode)
+    systemCode = SystemCode(code_main='currency', code_desc='货币',
+                            code_code='HKD', code_value='港元', code_type=2)
+    db_session.add(systemCode)
+    systemCode = SystemCode(code_main='currency', code_desc='货币',
+                            code_code='JPY', code_value='日圆', code_type=2)
+    db_session.add(systemCode)
+    systemCode = SystemCode(code_main='currency', code_desc='货币',
+                            code_code='SUR', code_value='卢布', code_type=2)
+    db_session.add(systemCode)
+    systemCode = SystemCode(code_main='currency', code_desc='货币',
+                            code_code='CAD', code_value='加元', code_type=2)
+    db_session.add(systemCode)
+    systemCode = SystemCode(code_main='currency', code_desc='货币',
+                            code_code='USD', code_value='美元', code_type=2)
+    db_session.add(systemCode)
+    systemCode = SystemCode(code_main='currency', code_desc='货币',
+                            code_code='AUD', code_value='澳大利亚元', code_type=2)
+    db_session.add(systemCode)
+    systemCode = SystemCode(code_main='currency', code_desc='货币',
+                            code_code='NZD', code_value='新西兰元', code_type=2)
+    db_session.add(systemCode)
+    systemCode = SystemCode(code_main='currency', code_desc='货币',
+                            code_code='SGD', code_value='新加坡元', code_type=2)
+    db_session.add(systemCode)
+
 class Database:
     conn=None
 
