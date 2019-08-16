@@ -13,7 +13,7 @@ import os
 
 #测试目录是否存在，如果不存在创建目录
 def check_dir_and_create(dir_fullpath):
-    if (!os.path.exists(dir_fullpath))||(!os.path.isdir(dir_fullpath)):
+    if (os.path.exists(dir_fullpath)==False)||(os.path.isdir(dir_fullpath)==False):
         os.mkdir(dir_fullpath)
 
 class DataClear:
