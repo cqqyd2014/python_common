@@ -6,6 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from .common import DataClear,check_dir_and_create
 
 
+print("dddd")
+
 
 def init_database_system_par(system_type,db_session,SystemPar):
         systemPar=None

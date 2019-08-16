@@ -9,11 +9,9 @@ import datetime
 
 #基础数据
 def base_system_code(db_session,SystemCode):
-    print("curr")
     currency(db_session,SystemCode)
 
 def currency(db_session,SystemCode):
-    print("start")
     systemCode = SystemCode(code_main='currency', code_desc='货币',
                             code_code='CNY', code_value='人民币元', code_type=2)
     db_session.add(systemCode)
