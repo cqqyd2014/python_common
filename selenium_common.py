@@ -7,7 +7,7 @@ from .common import DataClear,check_dir_and_create
 
 
 
-def init_database_system_par(system_type,db_session,systemPar):
+def init_database_system_par(system_type,db_session,SystemPar):
         systemPar=None
         if system_type=='Windows':
                 systemPar = SystemPar(par_code='chrome_driver', par_desc='Chrome驱动',
@@ -17,14 +17,14 @@ def init_database_system_par(system_type,db_session,systemPar):
                                 par_value=r'D:\chrome_user_data_dir', par_type=2)
                 db_session.add(systemPar)
 
-        if system_type=='Linux'
+        if system_type=='Linux':
                 systemPar = SystemPar(par_code='chrome_driver', par_desc='Chrome驱动',
                                 par_value=r'/u01/software/chromedriver', par_type=2)
                 db_session.add(systemPar)
                 systemPar = SystemPar(par_code='chrome_user-data-dir', par_desc='Chrome用户目录',
                                 par_value=r'/u01/chrome_user_data_dir', par_type=2)
                 db_session.add(systemPar)
-        if system_type=='Mac'
+        if system_type=='Mac':
                 systemPar = SystemPar(par_code='chrome_driver', par_desc='Chrome驱动',
                                 par_value=r'‎⁨/Volumes/MacintoshHD/Software/chromedriver', par_type=2)
                 db_session.add(systemPar)
