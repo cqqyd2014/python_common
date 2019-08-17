@@ -18,7 +18,7 @@ class SystemPar(Base):
         if db_data==None:
             return None
         else:
-            return db_data['par_value']
+            return db_data.par_value
 
     def __repr__(self):
         return self.par_code+"_"+self.par_value
