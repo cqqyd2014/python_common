@@ -133,7 +133,7 @@ class Sel():
                 self.driver.quit()
 
         #https://www.runoob.com/w3cnote/python-func-decorators.html
-        def handle_open_page(func):                
+        def handle_open_page(url,func):                
                 early_handles = self.driver.window_handles
                 #记录当前的windows句柄
                 current_window_handle=self.driver.current_window_handle
