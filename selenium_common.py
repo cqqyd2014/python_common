@@ -145,7 +145,7 @@ class Sel():
                 self.driver.quit()
 
         def getHtmlSource(self,url):
-                browser.get(url)
+                self.driver.get(url)
                 return browser.page_source
 
         def handle_open_page(func):
