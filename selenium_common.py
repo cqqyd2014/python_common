@@ -146,7 +146,7 @@ class Sel():
 
         def getHtmlSource(self,url):
                 self.driver.get(url)
-                return browser.page_source
+                return self.driver.page_source
 
         def handle_open_page(func):
                 def _decorate(self,url,db_session):
