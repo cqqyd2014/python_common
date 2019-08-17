@@ -38,6 +38,13 @@ def init_database_system_par(system_type,db_session,SystemPar):
                 db_session.add(systemPar)
         #测试，目录是否存在，如果不存在创建目录
         check_dir_and_create(systemPar.par_value)
+        #测试用网站
+        systemPar = SystemPar(par_code='net_test_dist', par_desc='测试网络的远程地址',
+                                par_value='http://httpbin.org/ip', par_type=2)
+        db_session.add(systemPar)
+        systemPar = SystemPar(par_code='net_test_dist_exists_text', par_desc='测试网站能否联通检测的字符串',
+                                par_value=r'"origin":', par_type=2)
+        db_session.add(systemPar)
 
 
 def hand_scroll(driver):
