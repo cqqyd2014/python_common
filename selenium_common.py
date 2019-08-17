@@ -128,3 +128,5 @@ class Sel():
                         driverOptions.add_argument(r"user-data-dir="+chrome_user_data_dir)
                         self.driver = webdriver.Chrome(executable_path=chrome_driver,chrome_options=driverOptions)
                         hand_browser_get(self.driver,"https://www.tianyancha.com/")
+        def closeWindow(self):
+                self.driver.quit()
