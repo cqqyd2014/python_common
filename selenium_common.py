@@ -31,10 +31,10 @@ def init_database_system_par(system_type,db_session,SystemPar):
                 db_session.add(systemPar)
         if system_type=='Mac':
                 systemPar = SystemPar(par_code='chrome_driver', par_desc='Chrome驱动',
-                                par_value=r'‎⁨/Volumes/MacintoshHD/Software/chromedriver', par_type=2)
+                                par_value='/Volumes/MacintoshHD/Software/chromedriver', par_type=2)
                 db_session.add(systemPar)
                 systemPar = SystemPar(par_code='chrome_user-data-dir', par_desc='Chrome用户目录',
-                                par_value=r'/Volumes/MacintoshHD/Software/chrome_user_data_dir', par_type=2)
+                                par_value='/Volumes/MacintoshHD/Software/chrome_user_data_dir', par_type=2)
                 db_session.add(systemPar)
         #测试，目录是否存在，如果不存在创建目录
         check_dir_and_create(systemPar.par_value)
@@ -135,7 +135,7 @@ class Sel():
         
         def closeWindow(self):
                 self.driver.quit()
-                
+
         def getHtmlSource(self,url):
                 browser.get(url)
                 return browser.page_source
