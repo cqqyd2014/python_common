@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from .common import DataClear,check_dir_and_create
 
 
-print("dddd")
+
 
 
 def init_database_system_par(system_type,db_session,SystemPar):
@@ -114,4 +114,7 @@ def hand_find_list_elements_by_list_pars(webdriver,list_pars):
                         pass
         return all_elements
                 
-    
+
+class Sel():
+        def __init__(self, _type,db_session,SystemPar):
+                if _type=='Chrome':
