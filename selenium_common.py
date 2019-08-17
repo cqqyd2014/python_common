@@ -135,7 +135,7 @@ class Sel():
                 self.driver.quit()
 
         def handle_open_page(func):
-                def _decorate(self,url,*args, **kwargs):
+                def _decorate(self,url):
                         early_handles = self.driver.window_handles
 
 
@@ -154,7 +154,7 @@ class Sel():
                         hand_browse_webpage_wait()
                         hand_scroll(self.driver)
                         hand_browse_webpage_wait()
-                        func(self,*args, **kwargs)
+                        func(self,url)
                         self.driver.close()
                         self.driver.switch_to.window(current_window_handle)
                 return _decorate
