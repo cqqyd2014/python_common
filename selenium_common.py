@@ -123,10 +123,10 @@ class Sel():
                 if _type=='Chrome':
                         #为Chrome浏览器初始化，从数据库获取参数
                         db_chrome_driver=db_session.query(SystemPar).filter(SystemPar.par_code=='chrome_driver').one()
-                        chrome_driver=db_chrome_driver.code_value
+                        chrome_driver=db_chrome_driver.par_value
                         driverOptions= webdriver.ChromeOptions()
                         db_chrome_user_data_dir=db_session.query(SystemPar).filter(SystemPar.par_code=='chrome_user-data-dir').one()
-                        chrome_user_data_dir=db_chrome_user_data_dir.code_value
+                        chrome_user_data_dir=db_chrome_user_data_dir.par_value
                         driverOptions.add_argument(r"user-data-dir="+chrome_user_data_dir)
                         self.driver = webdriver.Chrome(executable_path=chrome_driver,chrome_options=driverOptions)
                         #hand_browser_get(self.driver,"https://www.tianyancha.com/")
