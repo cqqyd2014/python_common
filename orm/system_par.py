@@ -14,7 +14,7 @@ class SystemPar(Base):
 
     @staticmethod
     def get_value(db_session,par_code):
-        db_data=db_session.query(SystemPar).filter(SystemPar.par_code=par_code).one_or_none()
+        db_data=db_session.query(SystemPar).filter(SystemPar.par_code==par_code).one_or_none()
         if db_data==None:
             return None
         else:
