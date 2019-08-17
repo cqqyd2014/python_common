@@ -133,26 +133,25 @@ class Sel():
                 self.driver.quit()
 
         #https://www.runoob.com/w3cnote/python-func-decorators.html
-        def handle_open_page(func):
-                def _decorate(self,url):
-                        early_handles = self.driver.window_handles
-                        #记录当前的windows句柄
-                        current_window_handle=self.driver.current_window_handle
+        def handle_open_page(func):                
+                early_handles = self.driver.window_handles
+                #记录当前的windows句柄
+                current_window_handle=self.driver.current_window_handle
 
-                        
-                        self.driver.execute_script('window.open("'+url+'");')
-                        #新的句柄集合
-                        
-                        later_handles = self.driver.window_handles
-                        new_handle=None
-                        for handle in later_handles:
-                                if handle not in early_handles:
-                                new_handle=handle
-                        self.driver.switch_to.window(new_handle)
-                        hand_browse_webpage_wait()
-                        hand_scroll(self.driver)
-                        hand_browse_webpage_wait()
-                        func(self,urls)
-                        self.driver.close()
-                        self.driver.switch_to.window(current_window_handle)
-                return _decorate
+                
+                self.driver.execute_script('window.open("'+url+'");')
+                #新的句柄集合
+                
+                later_handles = self.driver.window_handles
+                new_handle=None
+                for handle in later_handles:
+                        if handle not in early_handles:
+                        new_handle=handle
+                self.driver.switch_to.window(new_handle)
+                hand_browse_webpage_wait()
+                hand_scroll(self.driver)
+                hand_browse_webpage_wait()
+                func()
+                self.driver.close()
+                self.driver.switch_to.window(current_window_handle)
+                
