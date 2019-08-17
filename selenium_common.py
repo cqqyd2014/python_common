@@ -119,7 +119,7 @@ def hand_find_list_elements_by_list_pars(webdriver,list_pars):
                 
 
 class Sel():
-        def __init__(self, _type,db_session,SystemPar):
+        def __init__(self, _type,db_session,SystemPar,proxy_http_server):
                 if _type=='Chrome':
                         #为Chrome浏览器初始化，从数据库获取参数
                         db_chrome_driver=db_session.query(SystemPar).filter(SystemPar.par_code=='chrome_driver').one()
@@ -127,12 +127,18 @@ class Sel():
                         driverOptions= webdriver.ChromeOptions()
                         db_chrome_user_data_dir=db_session.query(SystemPar).filter(SystemPar.par_code=='chrome_user-data-dir').one()
                         chrome_user_data_dir=db_chrome_user_data_dir.par_value
-                        driverOptions.add_argument(r"user-data-dir="+chrome_user_data_dir)
-                        self.driver = webdriver.Chrome(executable_path=chrome_driver,chrome_options=driverOptions)
+                        driverOptions.add_argument("--proxy-server=http://"+proxy_http_server)
+                        if proxy_http_server!=None:
+                                driverOptions.add_argument(r"user-data-dir="+chrome_user_data_dir)
+                        self.driver = webdriver.Chrome(executable_path=chrome_driver,options=driverOptions)
                         #hand_browser_get(self.driver,"https://www.tianyancha.com/")
         
         def closeWindow(self):
                 self.driver.quit()
+                
+        def getHtmlSource(self,url):
+                browser.get(url)
+                return browser.page_source
 
         def handle_open_page(func):
                 def _decorate(self,url,db_session):
