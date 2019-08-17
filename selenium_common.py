@@ -146,7 +146,7 @@ class Sel():
                 new_handle=None
                 for handle in later_handles:
                         if handle not in early_handles:
-                        new_handle=handle
+                                new_handle=handle
                 self.driver.switch_to.window(new_handle)
                 hand_browse_webpage_wait()
                 hand_scroll(self.driver)
