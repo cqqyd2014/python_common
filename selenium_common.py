@@ -65,7 +65,7 @@ def hand_send_keys(input_control,input_text):
 def hand_browser_get(browser,url):
 
         browser.get(url)
-        t=random.uniform(0.1, 1)
+
 
 
 def hand_click(button):
@@ -127,6 +127,32 @@ class Sel():
                         chrome_user_data_dir=db_session.query(SystemPar).filter(SystemPar.par_code=='chrome_user-data-dir').one()
                         driverOptions.add_argument(r"user-data-dir="+chrome_user_data_dir)
                         self.driver = webdriver.Chrome(executable_path=chrome_driver,chrome_options=driverOptions)
-                        hand_browser_get(self.driver,"https://www.tianyancha.com/")
+                        #hand_browser_get(self.driver,"https://www.tianyancha.com/")
+        
         def closeWindow(self):
                 self.driver.quit()
+
+        #https://www.runoob.com/w3cnote/python-func-decorators.html
+        def handle_open_page(func):
+                def _decorate(self,url):
+                        early_handles = self.driver.window_handles
+                        #记录当前的windows句柄
+                        current_window_handle=self.driver.current_window_handle
+
+                        
+                        self.driver.execute_script('window.open("'+url+'");')
+                        #新的句柄集合
+                        
+                        later_handles = self.driver.window_handles
+                        new_handle=None
+                        for handle in later_handles:
+                                if handle not in early_handles:
+                                new_handle=handle
+                        self.driver.switch_to.window(new_handle)
+                        hand_browse_webpage_wait()
+                        hand_scroll(self.driver)
+                        hand_browse_webpage_wait()
+                        func(self,urls)
+                        self.driver.close()
+                        self.driver.switch_to.window(current_window_handle)
+                return _decorate
