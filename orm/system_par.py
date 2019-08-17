@@ -12,6 +12,14 @@ class SystemPar(Base):
     def delete_all(db_session):
         db_session.query(SystemPar).delete()
 
+    @staticmethod
+    def get_value(db_session,par_code):
+        db_data=db_session.query(SystemPar).filter(SystemPar.par_code=par_code).one_or_none()
+        if db_data==None:
+            return None
+        else:
+            return db_data['par_value']
+
     def __repr__(self):
         return self.par_code+"_"+self.par_value
 
