@@ -134,9 +134,10 @@ class Sel():
                         driverOptions= webdriver.ChromeOptions()
                         db_chrome_user_data_dir=db_session.query(SystemPar).filter(SystemPar.par_code=='chrome_user-data-dir').one()
                         chrome_user_data_dir=db_chrome_user_data_dir.par_value
-                        driverOptions.add_argument("--proxy-server=http://"+proxy_http_server)
+                        driverOptions.add_argument(r"user-data-dir="+chrome_user_data_dir)
+                        
                         if proxy_http_server!=None:
-                                driverOptions.add_argument(r"user-data-dir="+chrome_user_data_dir)
+                                driverOptions.add_argument("--proxy-server=http://"+proxy_http_server)
                         self.driver = webdriver.Chrome(executable_path=chrome_driver,options=driverOptions)
                         #hand_browser_get(self.driver,"https://www.tianyancha.com/")
         
