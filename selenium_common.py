@@ -122,9 +122,11 @@ class Sel():
         def __init__(self, _type,db_session,SystemPar):
                 if _type=='Chrome':
                         #为Chrome浏览器初始化，从数据库获取参数
-                        chrome_driver=db_session.query(SystemPar).filter(SystemPar.par_code=='chrome_driver').one()
+                        db_chrome_driver=db_session.query(SystemPar).filter(SystemPar.par_code=='chrome_driver').one()
+                        chrome_driver=db_chrome_driver.code_value
                         driverOptions= webdriver.ChromeOptions()
-                        chrome_user_data_dir=db_session.query(SystemPar).filter(SystemPar.par_code=='chrome_user-data-dir').one()
+                        db_chrome_user_data_dir=db_session.query(SystemPar).filter(SystemPar.par_code=='chrome_user-data-dir').one()
+                        chrome_user_data_dir=db_chrome_user_data_dir.code_value
                         driverOptions.add_argument(r"user-data-dir="+chrome_user_data_dir)
                         self.driver = webdriver.Chrome(executable_path=chrome_driver,chrome_options=driverOptions)
                         #hand_browser_get(self.driver,"https://www.tianyancha.com/")
