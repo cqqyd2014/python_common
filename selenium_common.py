@@ -105,8 +105,9 @@ def hand_find_text_element(webdriver,byMethod,value):
 def hand_find_element(webdriver,byMethod,value):
         element=None
         try:
-                element=webdriver.find_element(byMethod,value)
-        except selenium.common.exceptions.NoSuchElementException as e:
+                locator = (byMethod,value)
+                element=WebDriverWait(webdriver,10).until(EC.presence_of_element_located(locator))
+        except selenium.common.exceptions.TimeoutException as e:
                 pass
         return element
 
