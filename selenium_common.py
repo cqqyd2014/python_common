@@ -102,7 +102,7 @@ def hand_find_element(webdriver,byMethod,value):
                 locator = (byMethod,value)
                 element=WebDriverWait(webdriver,10).until(EC.presence_of_element_located(locator))
         except selenium.common.exceptions.TimeoutException as e:
-                print(e)
+                print('hand_find_element抓取对象超时'+str(e))
         return element
 
 # 智能等待10s之后获取元素，获取的是多个元素
