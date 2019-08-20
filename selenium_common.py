@@ -82,7 +82,14 @@ def hand_find_date_element(webdriver,byMethod,value):
                 return None
         else:
                 return DataClear().text_to_date(element_text)
-        
+
+def hand_find_float_element(webdriver,byMethod,value):
+        element_text=hand_find_text_element(webdriver,byMethod,value)
+        if element_text==None:
+                return None
+        else:
+                return DataClear().text_to_float(element_text)
+
 def hand_find_int_element(webdriver,byMethod,value):
         element_text=hand_find_text_element(webdriver,byMethod,value)
         if element_text==None:
