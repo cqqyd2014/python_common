@@ -1,6 +1,9 @@
 import selenium
 import random
 import time
+
+
+
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
@@ -53,7 +56,7 @@ def hand_wait(start,end):
 def hand_type_word_wait():
         hand_wait(0.1,1)
 def hand_browse_webpage_wait():
-        hand_wait(5,20)
+        hand_wait(3,8)
 def hand_focus_move_wait():
         hand_wait(1,3)
 
@@ -121,6 +124,10 @@ def hand_find_list_elements_by_list_pars(webdriver,list_pars):
                 
 
 class Sel():
+
+
+
+
         def __init__(self, _type,db_session,SystemPar,proxy_http_server):
                 if _type=='Chrome':
                         #为Chrome浏览器初始化，从数据库获取参数
