@@ -56,7 +56,7 @@ def hand_wait(start,end):
 def hand_type_word_wait():
         hand_wait(0.1,1)
 def hand_browse_webpage_wait():
-        hand_wait(3,8)
+        hand_wait(2,5)
 def hand_focus_move_wait():
         hand_wait(1,3)
 
