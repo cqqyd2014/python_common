@@ -106,6 +106,14 @@ def hand_find_text_element(webdriver,byMethod,value):
                 
                 return element_text
 
+def find_element_by_xpath(root,value):
+        element=None
+        try:
+                element=root.find_element_by_xpath('./div/div[3]/div[1]/a')
+        except selenium.common.exceptions.NoSuchElementException as e:
+                print("find_element_by_xpath抓取对象超时,值"+str(value))
+        return element
+
 def hand_find_element(webdriver,byMethod,value):
         element=None
         try:
