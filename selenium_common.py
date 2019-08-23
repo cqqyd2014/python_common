@@ -122,6 +122,16 @@ def find_elements_by_xpath(root,value):
                 print("find_elements_by_xpath抓取对象超时,值"+str(value))
         return elements
 
+
+def hand_find_element(webdriver,byMethod,value):
+        elements=None
+        try:
+                locator = (byMethod,value)
+                elements=WebDriverWait(webdriver,10).until(EC.presence_of_element_located(locator))
+        except selenium.common.exceptions.TimeoutException as e:
+                print('hand_find_element抓取对象超时,方法'+str(byMethod)+',值'+str(value))
+        return elements
+
 def hand_find_elements(webdriver,byMethod,value):
         elements=None
         try:
